@@ -7,12 +7,8 @@ import { ThemeProvider } from './ThemeContext';
 jest.mock('./ThemeContext');
 
 describe('Header Component', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-
   test('renders with light theme', () => {
-    useTheme.mockReturnValue({ theme: 'light', toggleTheme: jest.fn() });
+    useTheme.mockReturnValueOnce({ theme: 'light', toggleTheme: jest.fn() });
 
     const { getByText, getByRole, container } = render(
       <ThemeProvider>
@@ -20,15 +16,15 @@ describe('Header Component', () => {
       </ThemeProvider>
     );
 
-    console.log(container.innerHTML); // Debug-Ausgabe des gerenderten HTML
+    console.log(container.innerHTML);
 
     expect(getByText('Switcher-App')).toBeInTheDocument();
-    expect(getByRole('button', { hidden: true })).toBeInTheDocument();
+    expect(getByRole('button')).toBeInTheDocument();
   });
 
   test('toggles theme when button is clicked', () => {
     const toggleThemeMock = jest.fn();
-    useTheme.mockReturnValue({ theme: 'light', toggleTheme: toggleThemeMock });
+    useTheme.mockReturnValueOnce({ theme: 'light', toggleTheme: toggleThemeMock });
 
     const { getByRole, container } = render(
       <ThemeProvider>
@@ -36,9 +32,10 @@ describe('Header Component', () => {
       </ThemeProvider>
     );
 
-    console.log(container.innerHTML); // Debug-Ausgabe des gerenderten HTML
+    console.log(container.innerHTML);
 
-    fireEvent.click(getByRole('button', { hidden: true }));
+    fireEvent.click(getByRole('button'));
     expect(toggleThemeMock).toHaveBeenCalled();
   });
 });
+
