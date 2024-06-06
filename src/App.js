@@ -8,7 +8,7 @@ const App = () => {
   const { theme } = useTheme();
 
   return (
-    <div className={theme === 'light' ? 'bg-white text-black' : 'bg-gray-900 text-white'} style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+    <div data-testid="app" className={theme === 'light' ? 'bg-white text-black' : 'bg-gray-900 text-white'} style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <Header />
       <Main />
       <Footer />
